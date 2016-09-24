@@ -15,6 +15,9 @@ public class CalcaActivity extends AppCompatActivity implements View.OnClickList
     TextView tv_result;
     int result;
 
+    CalcaService service = new CalcaServiceImpl();
+    CalcaDTO cal = new CalcaDTO();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +47,17 @@ public class CalcaActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int num1 = Integer.parseInt(et_num_1.getText().toString());
         int num2 = Integer.parseInt(et_num_2.getText().toString());
-
+cal.setNum1(num1);
+cal.setNum2(num2);
 
         switch(v.getId()){
             case R.id.bt_plus:
-                result = num1+num2;
+                result = service.plus(cal).getResult();
                 break;
-            case R.id.bt_minus: result = num1-num2;break;
-            case R.id.bt_times: result = num1*num2;break;
-            case R.id.bt_divide1: result = num1/num2;break;
-            case R.id.bt_divide2: result = num1%num2;break;
+            case R.id.bt_minus: result = service.minus(cal).getResult();break;
+            case R.id.bt_times: result = service.times(cal).getResult();break;
+            case R.id.bt_divide1: result = service.divide1(cal).getResult();break;
+            case R.id.bt_divide2: result = service.divide2(cal).getResult();break;
             case R.id.bt_equal: tv_result.setText("result="+result);
         }
     }
